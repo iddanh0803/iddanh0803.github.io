@@ -6,36 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stock</title>
+    <link rel="icon" type="image/x-icon" href="/image/OIP.jpg">
     <style>
         body {
             display: flex;
             background-color: white;
             margin: 0;
             color: green;
+            flex-direction: column;
         }
 
         .white {
-            display: flex;
-            flex: 10%;
-            flex-direction: row;
-            border-style: dashed;
+            flex: 20%;
+            flex-direction: column;
+            border-style: groove;
             vertical-align: middle;
+            text-align: center;
+            background-color: gray ;
         }
 
         .flex-container {
             display: flex;
             height: auto;
             align-items: center;
-            background-color: white;
+            background-color: gray;
             flex-direction: row;
-            flex: 100%;
+            flex: 80%;
             flex-wrap: wrap;
             margin-top: 100px;
         }
 
+        a {
+            text-decoration: none;
+            color: black;
+        }
 
         a:hover {
-            color: hotpink;
+            color: blue;
+            text-decoration: none;
         }
 
         .flex-container>div {
@@ -49,55 +57,72 @@
             color: black;
             border-style: groove;
         }
+
+        .img {
+            width: 200px;
+            height: 200px;
+        }
     </style>
 </head>
 
 <body>
     <div class="white">
-        <h1>Stock</h1>
+        <h1><img src="https://th.bing.com/th/id/OIP.dD8RerKYvqMLKmg4qK03fgHaHa?w=171&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                alt="Stock" style="height: 100px; width: 100px;"></h1>
     </div>
 
     <div class="flex-container">
         <div>
-            <h2>adidas forum</h2>
-            <img src="https://th.bing.com/th/id/OIP.T1i7wntx95K8aUL3MNP3qgHaFP?w=238&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="adidas forum">
-            <a href="https://stockx.com/search?s=adidas%20forum"></a>
+            <a href="#https://stockx.com/search?s=adidas%20forum">
+                <h2>adidas forum</h2> <img
+                    src="https://th.bing.com/th/id/OIP.T1i7wntx95K8aUL3MNP3qgHaFP?w=238&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="adidas forum">
+            </a>
             <p>Price: 100$ </p>
         </div>
+
         <div>
-            <h2>nike dunk low</h2>
-            <img src="https://th.bing.com/th/id/OIP.4Un5bHhVWMUPmR4RQkns_AHaFP?w=278&h=197&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="nike dunk low">
-            <a href="https://stockx.com/search?s=nike%20dunk%20low"></a>
+            <a href="#https://stockx.com/search?s=nike%20dunk%20low">
+                <h2>nike dunk low</h2> <img
+                    src="https://th.bing.com/th/id/OIP.4Un5bHhVWMUPmR4RQkns_AHaFP?w=278&h=197&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="nike dunk low">
+            </a>
             <p>Price: 150$ </p>
         </div>
+
         <div>
-            <h2>nike airforce</h2>
-            <img src="https://th.bing.com/th/id/OIP.YTFKrxNlWhzkbCc8uHmyhQHaFS?w=264&h=189&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="nike airforce">
-            <a href="https://stockx.com/search?s=nike%20airforce"></a>
+            <a href="#https://stockx.com/search?s=nike%20airforce">
+                <h2>nike airforce</h2><img
+                    src="https://th.bing.com/th/id/OIP.YTFKrxNlWhzkbCc8uHmyhQHaFS?w=264&h=189&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="nike airforce">
+            </a>
             <p>Price: 80$ </p>
         </div>
+
         <div>
-            <h2>adidas foam</h2>
-            <img src="https://th.bing.com/th/id/OIP.OiMYJehqcXKReYa0mAkaAwHaHa?w=191&h=191&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="adidas foam">
-            <a href="https://stockx.com/search?s=adifom%20superstar"></a>
+            <a href="#https://stockx.com/search?s=adifom%20superstar">
+                <h2>adidas foam</h2> <img
+                    src="https://th.bing.com/th/id/OIP.OiMYJehqcXKReYa0mAkaAwHaHa?w=191&h=191&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="adidas foam">
+            </a>
             <p>Price: 125$ </p>
         </div>
+
         <div>
-            <h2>converse chuck 70</h2>
-            <img src="https://th.bing.com/th/id/OIP.lu8wVXM76sgBqY8b5xIztgHaHa?w=178&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="converse chuck 70">
-            <a href="https://stockx.com/search?s=converse%20chuck70"></a>
+            <a href="#https://stockx.com/search?s=converse%20chuck70">
+                <h2>converse chuck 70</h2> <img
+                    src="https://th.bing.com/th/id/OIP.lu8wVXM76sgBqY8b5xIztgHaHa?w=178&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="converse chuck 70">
+            </a>
             <p>Price: 20$ </p>
         </div>
+
         <div>
-            <h2>puma slipstream</h2>
-            <img src="https://th.bing.com/th/id/OIP.WCqD0Ly3A7dKqBefbT8W7QHaIq?w=175&h=205&c=7&r=0&o=5&dpr=1.1&pid=1.7"
-                alt="puma slipstream">
-            <a href="https://stockx.com/search?s=puma%20slipstream"></a>
+            <a href="#https://stockx.com/search?s=puma%20slipstream">
+                <h2>puma slipstream</h2> <img
+                    src="https://th.bing.com/th/id/OIP.WCqD0Ly3A7dKqBefbT8W7QHaIq?w=175&h=205&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                    alt="puma slipstream">
+            </a>
             <p>Price: 50$ </p>
         </div>
     </div>
