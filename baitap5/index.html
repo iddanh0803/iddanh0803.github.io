@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="scroll-behavior: smooth;">
 
 <head>
     <meta charset="UTF-8">
@@ -13,16 +13,15 @@
             background-color: white;
             margin: 0;
             color: green;
-            flex-direction: column;
         }
 
-        .white {
+        .menu{
             flex: 20%;
-            flex-direction: column;
             border-style: groove;
-            vertical-align: middle;
             text-align: center;
             background-color: gray ;
+            position: relative;
+            border: 2px solid green;
         }
 
         .flex-container {
@@ -33,7 +32,7 @@
             flex-direction: row;
             flex: 80%;
             flex-wrap: wrap;
-            margin-top: 100px;
+
         }
 
         a {
@@ -57,20 +56,55 @@
             color: black;
             border-style: groove;
         }
-
+        .btn{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background-color: green;
+            border-radius: 1.5rem ;
+        }
         .img {
             width: 200px;
             height: 200px;
         }
+        .menu>div:hover{
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            width: auto;
+            height: 60px;
+            border: 2px solid green;
+            cursor: pointer;
+            border-radius: 45px;
+        }
+
     </style>
 </head>
 
 <body>
-    <div class="white">
-        <h1><img src="https://th.bing.com/th/id/OIP.dD8RerKYvqMLKmg4qK03fgHaHa?w=171&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+    <div class="menu">
+        <h1 id="top
+        "><img src="https://th.bing.com/th/id/OIP.dD8RerKYvqMLKmg4qK03fgHaHa?w=171&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
                 alt="Stock" style="height: 100px; width: 100px;"></h1>
+        <div>
+            <h2>Home</h2>
+        </div>
+        <div>
+            <h2>Reviews</h2>
+        </div>
+        <div>
+            <h2>Store</h2>
+        </div>
+        <div>
+            <h2>About</h2>
+        </div>
     </div>
-
+    <div class="main">
+        <a href="#top" class="btn">Back to top</a>
+    </div>
     <div class="flex-container">
         <div>
             <a href="https://stockx.com/search?s=adidas%20forum">
