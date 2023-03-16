@@ -13,15 +13,24 @@
             background-color: white;
             margin: 0;
             color: green;
+            flex-direction: column;
         }
 
-        .menu{
+        .menu {
+            display: flex;
             flex: 20%;
             border-style: groove;
             text-align: center;
-            background-color: gray ;
+            background-color: gray;
             position: relative;
             border: 2px solid green;
+        }
+
+        .menu div {
+            padding: 15px;
+            transition: 0.3s;
+            display: block;
+            min-width: 80px;
         }
 
         .flex-container {
@@ -56,31 +65,32 @@
             color: black;
             border-style: groove;
         }
-        .btn{
+
+        .btn {
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             position: fixed;
             bottom: 2rem;
             right: 2rem;
             background-color: green;
-            border-radius: 1.5rem ;
+            border-radius: 1.5rem;
         }
 
-        .menu>div:hover{
+        .menu>div:hover {
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             width: auto;
             height: 60px;
             border: 2px solid green;
             cursor: pointer;
-            border-radius: 45px;
-        }
-        img:hover{
-            scale: 1.2;
+            border-radius: 35px;
         }
 
+        img:hover {
+            scale: 1.2;
+        }
     </style>
 </head>
 

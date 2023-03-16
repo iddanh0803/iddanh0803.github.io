@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .thumbnail {
+            position: relative;
+            width: 250px;
+            height: 250px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .thumbnail img{
+            width: 250px;
+            transition: 0.5s;
+        }
+        .thumbnail:hover img{
+            scale: 1.2;
+            transform: rotate(10deg);
+        }
+        .thumbnail .buy{
+            height: 0;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            text-align: center;
+            background-color: rgba(red, green, blue, alpha);
+            color: white;
+            transition: 0.5s;
+            line-height: 30px;
+        }
+       .thumbnail:hover .buy{
+        height: 30px
+       }
+    </style>
+</head>
+
+<body>
+    <div class="thumbnail">
+        <a href="#" class="buy">
+            <img src="https://th.bing.com/th/id/OIP.T1i7wntx95K8aUL3MNP3qgHaFP?w=238&h=180&c=7&r=0&o=5&dpr=1.1&pid=1.7"
+                alt="forum">
+        <div class="buy">
+            muangay
+        </div>
+    </div>
+
+</body>
+
+</html>
