@@ -17,7 +17,7 @@ public class StudentHandle {
         return student;
     }
 
-    public Student addStudent(Scanner scanner) {
+    public void addStudent(Scanner scanner, ArrayList<Student> students) {
         System.out.println("Mời bạn nhập thông tin học sinh muốn thêm: ");
         System.out.println("Mời bạn nhập tên: ");
         String name = scanner.nextLine();
@@ -26,7 +26,7 @@ public class StudentHandle {
         System.out.println("Mời bạn nhập học lực: ");
         String rating = scanner.nextLine();
         Student student = new Student(age, name, rating);
-        return student;
+        students.add(student);
     }
 
     public void editStudentByID(Scanner scanner, ArrayList<Student> students) {

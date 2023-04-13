@@ -17,15 +17,25 @@ public class Main {
         System.out.println("Mời bạn nhập giảng viên: ");
         String teacher = scanner.nextLine();
 
-        ClassTechmasterHandle classTechmasterHandle = new ClassTechmasterHandle();
-        ClassTechmaster classTechmaster = classTechmasterHandle.inputClassTechmaster(scanner);
+        System.out.println("Mời bạn nhập môn học: ");
+        String subject = scanner.nextLine();
+        StudentHandle studentHandle = new StudentHandle();
+        System.out.println("Mời bạn nhập số học sinh: ");
+        int n = Integer.parseInt(scanner.nextLine());
+        for (int i = 0; i < n; i++) {
+            System.out.println("Mời bạn nhập vào học viên thứ " + (i+1) + ":" );
+            Student student = studentHandle.inputStudent(scanner);
+            students.add(student);
+        }
+        ClassTechmaster classTechmaster = new ClassTechmaster(subject,students);
+
 
         Techmaster techmaster = new Techmaster(manager,teacher,classTechmaster);
         System.out.println("Thông tin trung tâm TechMaster: ");
         System.out.println(techmaster);
+
         //Add
-        StudentHandle studentHandle = new StudentHandle();
-        Student student = studentHandle.addStudent(scanner);
+        studentHandle.addStudent(scanner,students);
         System.out.println(techmaster);
         //Edit
         studentHandle.editStudentByID(scanner,students);
