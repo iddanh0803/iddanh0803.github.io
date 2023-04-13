@@ -9,8 +9,21 @@ public class Student {
 
 
     public Student(int age, String name, String rating) {
+        this.id = ++autoId;
         this.age = age;
         this.name = name;
+        this.rating = rating;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

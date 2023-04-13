@@ -2,7 +2,7 @@ import entity.ClassTechmaster;
 import entity.Student;
 import entity.Techmaster;
 import handle.ClassTechmasterHandle;
-import handle.StudentManager;
+import handle.StudentHandle;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -21,12 +21,17 @@ public class Main {
         ClassTechmaster classTechmaster = classTechmasterHandle.inputClassTechmaster(scanner);
 
         Techmaster techmaster = new Techmaster(manager,teacher,classTechmaster);
-
-
-        System.out.println("Add student");
-        StudentManager studentManager = new StudentManager();
-        studentManager.addStudent(scanner);
-
+        System.out.println("Thông tin trung tâm TechMaster: ");
+        System.out.println(techmaster);
+        //Add
+        StudentHandle studentHandle = new StudentHandle();
+        Student student = studentHandle.addStudent(scanner);
+        System.out.println(techmaster);
+        //Edit
+        studentHandle.editStudentByID(scanner,students);
+        System.out.println(techmaster);
+        //Xóa
+        studentHandle.deleteStudent(scanner,students);
         System.out.println(techmaster);
     }
 }
