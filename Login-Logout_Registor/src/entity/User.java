@@ -1,9 +1,9 @@
 package entity;
 
 public class User {
-    private String userName ;
+    private String userName  ;
     private String passWord ;
-    private String eMail;
+    private String email;
 
     public String getUserName() {
         return userName;
@@ -22,11 +22,11 @@ public class User {
     }
 
     public String geteMail() {
-        return eMail;
+        return email;
     }
 
     public void seteMail(String eMail) {
-        this.eMail = eMail;
+        this.email = eMail;
     }
 
     @Override
@@ -34,7 +34,14 @@ public class User {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +
-                ", eMail='" + eMail + '\'' +
+                ", eMail='" + email + '\'' +
                 '}';
     }
+
+    public User(String userName, String passWord, String email) {
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+    }
+
 }
