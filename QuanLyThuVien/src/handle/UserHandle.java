@@ -1,5 +1,5 @@
 package handle;
-
+import entity.Book;
 import entity.User;
 import view.Menu;
 
@@ -11,6 +11,8 @@ import java.util.regex.Pattern;
 public class UserHandle {
     //Tạo tài khản
     public void createUser(Scanner scanner, ArrayList<User> users){
+        System.out.println("Xét phân quyền: ");
+        String role = scanner.nextLine();
         System.out.println("Nhập username: ");
         String username = scanner.nextLine();
         String email = "";
@@ -48,35 +50,41 @@ public class UserHandle {
             System.out.println("Username hoặc email đã được sử dụng. ");
             createUser(scanner,users);
         }else {
-            User user = new User(username,email,password);
+            User user = new User(username,email,password,role);
             users.add(user);
         }
     }
     Menu menu = new Menu();
     // Đăng nhập
-    public void login(Scanner scanner,ArrayList<User> users){
+    public void login(Scanner scanner, ArrayList<User> users){
         System.out.println("Mời bạn nhập Username: ");
         String username = scanner.nextLine();
         System.out.println("Mời bạn nhập Password: ");
         String password = scanner.nextLine();
-        for (User user:users
-             ) {
-            if (Objects.equals(user.getUsername(), username) && Objects.equals(user.getPassword(), password)){
-                System.out.println("Chào mừng "+username+", bạn có thể thực hiện các công việc sau:");
-                menu.menuLoginSuccess(scanner,users,user);
+        for (User user : users
+        ) {
+            if (Objects.equals(user.getUsername(), username) && Objects.equals(user.getPassword(), password)) {
+                if (user.getRole().equalsIgnoreCase("manager")) {
+                    System.out.println("Chào mừng " + username + ", bạn có thể thực hiện các công việc sau:");
+                    menu.menuLoginManager(scanner, users, user);
+                } else if (user.getRole().equalsIgnoreCase("reader")) {
+                    System.out.println("Chào mừng " + username + ", bạn có thể thực hiện các công việc sau:");
+                    menu.menuLoginReader(scanner,users,user);
+                }
             } else if (Objects.equals(user.getUsername(), username) && !Objects.equals(user.getPassword(), password)) {
                 System.out.println("Mật khẩu không đúng!");
-                menu.menuLoginFalse(scanner,users);
-            }else if (!Objects.equals(user.getUsername(), username) ) {
+                menu.menuLoginFalse(scanner, users);
+            } else if (!Objects.equals(user.getUsername(), username)) {
                 System.out.println("Kiểm tra lại Username. ");
-                login(scanner,users);
-            }else if
-                (!Objects.equals(user.getUsername(), username) && !Objects.equals(user.getPassword(), password)) {
-                    System.out.println("Tài khoản không tồn tại.");
-                    menu.menuLogin(scanner,users);
-                }
+                login(scanner, users);
+            } else if
+            (!Objects.equals(user.getUsername(), username) && !Objects.equals(user.getPassword(), password)) {
+                System.out.println("Tài khoản không tồn tại.");
+                menu.menuLogin(scanner, users);
             }
         }
+    }
+    //Tìm kiếm email
     public User findEmail(ArrayList<User> users, String email){
         for (User user:users
                 ) {
@@ -96,22 +104,20 @@ public class UserHandle {
         }
     }
     //Đổi mật khẩu
-    public void changePassword(Scanner scanner,User user,ArrayList<User> users){
-        String newPassword = "";
+    public void changePassword(Scanner scanner, User user, ArrayList<User> users) {
+        String newPassword;
         while (true) {
             System.out.println("Nhập password mới (dài từ 7 đến 15 ký tự, chứa ít nhất 1 ký tự in hoa): ");
             newPassword = scanner.nextLine();
             Pattern p = Pattern.compile("^[0-9A-Za-z]{7,15}$");
             Pattern p2 = Pattern.compile("^[0-9A-Za-z]*[A-Z]+[0-9A-Za-z]*");
             if (user != null && p.matcher(newPassword).find() && p2.matcher(newPassword).find()) {
+                user.setPassword(newPassword);
+                System.out.println("Đổi mật khẩu thành công.");
                 break;
             } else {
                 System.out.println("Password không hợp lệ. Mời nhập lại: ");
             }
-            user.setPassword(newPassword);
-            System.out.println("Đổi mật khẩu thành công.");
-            System.out.println("Mời bạn đăng nhập lại.");
-            login(scanner,users);
         }
     }
     //Tìm User theo tên
@@ -124,17 +130,15 @@ public class UserHandle {
         return null;
     }
     //Đổi Username
-    public void changeUsername(Scanner sc, ArrayList<User> users) {
+    public void changeUsername(Scanner scanner, ArrayList<User> users) {
         for (User user : users) {
             System.out.println("Nhập username mới: ");
-            String userNameNew = sc.nextLine();
+            String userNameNew = scanner.nextLine();
             if (findUserByUsername(users, userNameNew) != null) {
                 System.out.println("Username đã tồn tại.");
             }else {
                 user.setUsername(userNameNew);
                 System.out.println("Đổi username thành công.");
-                System.out.println("Mời đăng nhập lại:");
-                login(sc,users);
             }
         }
     }
@@ -148,12 +152,12 @@ public class UserHandle {
         return null;
     }
     //Đổi email
-    public void changeEmail(Scanner sc, ArrayList<User> users) {
+    public void changeEmail(Scanner scanner, ArrayList<User> users) {
         for (User user : users) {
             String emailNew;
             while (true){
                 System.out.println("Nhập email: ");
-                emailNew = sc.nextLine();
+                emailNew = scanner.nextLine();
                 Pattern e = Pattern.compile("^[A-Za-z][0-9A-Za-z]+@[A-Za-z]{2,}(\\.[A-Za-z]+)+$");
                 if (e.matcher(emailNew).find()){
                     break;
@@ -166,8 +170,6 @@ public class UserHandle {
             } else {
                 user.setEmail(emailNew);
                 System.out.println("Dổi email thành công.");
-                System.out.println("Mời đăng nhập lại: ");
-                login(sc,users);
             }
         }
     }
