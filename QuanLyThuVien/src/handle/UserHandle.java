@@ -1,5 +1,6 @@
 package handle;
 import entity.Book;
+import entity.Ticket;
 import entity.User;
 import view.Menu;
 
@@ -11,10 +12,10 @@ import java.util.regex.Pattern;
 public class UserHandle {
     //Tạo tài khản
     public void createUser(Scanner scanner, ArrayList<User> users){
-        System.out.println("Xét phân quyền: ");
-        String role = scanner.nextLine();
+        String role = "";
         System.out.println("Nhập username: ");
         String username = scanner.nextLine();
+
         String email = "";
         while (true){
             System.out.println("Nhập email: ");
@@ -46,7 +47,7 @@ public class UserHandle {
                 break;
             }
         }
-        if (check){
+        if (!check){
             System.out.println("Username hoặc email đã được sử dụng. ");
             createUser(scanner,users);
         }else {
@@ -56,31 +57,40 @@ public class UserHandle {
     }
     Menu menu = new Menu();
     // Đăng nhập
-    public void login(Scanner scanner, ArrayList<User> users){
+    public void login(Scanner scanner, ArrayList<User> users, ArrayList<Book> books, Book book, ArrayList<Ticket> tickets){
         System.out.println("Mời bạn nhập Username: ");
         String username = scanner.nextLine();
         System.out.println("Mời bạn nhập Password: ");
         String password = scanner.nextLine();
+        boolean check = false;
         for (User user : users
         ) {
-            if (Objects.equals(user.getUsername(), username) && Objects.equals(user.getPassword(), password)) {
-                if (user.getRole().equalsIgnoreCase("manager")) {
-                    System.out.println("Chào mừng " + username + ", bạn có thể thực hiện các công việc sau:");
-                    menu.menuLoginManager(scanner, users, user);
+           if (user.getUsername().equals(username)){
+               check = true;
+               break;
+           }
+        }
+        if (!check){
+            System.out.println("Username không đúng.");
+            login(scanner,users,books,book,tickets);
+        }
+        for (User user:users
+             ) {
+            if (user.getUsername().equals(username) && !user.getPassword().equals(password)) {
+                System.out.println("Mật khẩu không đúng. ");
+                menu.menuLoginFalse(scanner, users, books,book,tickets);
+            }
+        }
+        for (User user: users
+             ) {
+            if (user.getUsername().equals(username)  && user.getPassword().equals(password) ){
+                if (user.getRole().equalsIgnoreCase("manager")){
+                    System.out.println("Chào mừng " + username + " bạn có thể thực hiện cac công việc sau: ");
+                    menu.menuLoginManager(scanner,users,user,books,book,tickets);
                 } else if (user.getRole().equalsIgnoreCase("reader")) {
-                    System.out.println("Chào mừng " + username + ", bạn có thể thực hiện các công việc sau:");
-                    menu.menuLoginReader(scanner,users,user);
+                    System.out.println("Chào mừng " + username + " bạn có thể thực hiện cac công việc sau: ");
+                    menu.menuLoginReader(scanner,users,user,books,book,tickets);
                 }
-            } else if (Objects.equals(user.getUsername(), username) && !Objects.equals(user.getPassword(), password)) {
-                System.out.println("Mật khẩu không đúng!");
-                menu.menuLoginFalse(scanner, users);
-            } else if (!Objects.equals(user.getUsername(), username)) {
-                System.out.println("Kiểm tra lại Username. ");
-                login(scanner, users);
-            } else if
-            (!Objects.equals(user.getUsername(), username) && !Objects.equals(user.getPassword(), password)) {
-                System.out.println("Tài khoản không tồn tại.");
-                menu.menuLogin(scanner, users);
             }
         }
     }
@@ -121,7 +131,9 @@ public class UserHandle {
         }
     }
     //Tìm User theo tên
-    public User findUserByUsername(ArrayList<User> users, String username) {
+    public User findUserByUsername(Scanner scanner,ArrayList<User> users) {
+        System.out.println("Mời bạn nhập username muốn tìm: ");
+        String username = scanner.nextLine();
         for (User user : users) {
             if (user.getUsername().equals(username)) {
                 return user;
@@ -134,7 +146,7 @@ public class UserHandle {
         for (User user : users) {
             System.out.println("Nhập username mới: ");
             String userNameNew = scanner.nextLine();
-            if (findUserByUsername(users, userNameNew) != null) {
+            if (findUserByUsername(scanner,users) != null) {
                 System.out.println("Username đã tồn tại.");
             }else {
                 user.setUsername(userNameNew);
@@ -169,7 +181,7 @@ public class UserHandle {
                 System.out.println("Email đã được sử dụng.");
             } else {
                 user.setEmail(emailNew);
-                System.out.println("Dổi email thành công.");
+                System.out.println("Đổi email thành công.");
             }
         }
     }

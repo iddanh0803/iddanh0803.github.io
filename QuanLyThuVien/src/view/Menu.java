@@ -1,18 +1,20 @@
 package view;
 
 import entity.Book;
+import entity.Ticket;
 import entity.User;
 import handle.BookHandle;
+import handle.Library;
 import handle.UserHandle;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
-    public void menuLogin(Scanner scanner, ArrayList<User>users){
+    public void menuLogin(Scanner scanner, ArrayList<User>users,ArrayList<Book>books,Book book,ArrayList<Ticket> tickets){
         int option = 0;
         System.out.println("1 - Đăng nhập ");
-        System.out.println("2 - Đặng kí ");
+        System.out.println("2 - Đăng kí ");
         System.out.println("Mời bạn chọn: ");
         try{
             option = Integer.parseInt(scanner.nextLine());
@@ -22,20 +24,20 @@ public class Menu {
         UserHandle userHandle = new UserHandle();
         switch (option){
             case 1:
-                userHandle.login(scanner,users);
+                userHandle.login(scanner,users,books,book,tickets);
                 break;
             case 2:
                 userHandle.createUser(scanner,users);
                 System.out.println("Đăng kí thành công.");
-                menuLogin(scanner,users);
+                menuLogin(scanner,users,books,book,tickets);
                 break;
             default:
                 System.out.println("Nhập dữ liệu không đúng. ");
-                menuLogin(scanner,users);
+                menuLogin(scanner,users,books,book,tickets);
                 break;
         }
     }
-    public void menuLoginFalse(Scanner scanner, ArrayList<User> users){
+    public void menuLoginFalse(Scanner scanner, ArrayList<User> users,ArrayList<Book> books,Book book,ArrayList<Ticket> tickets){
         int option = 0;
         System.out.println("1. Đăng nhập lại. ");
         System.out.println("2. Quên mật khẩu.");
@@ -48,7 +50,7 @@ public class Menu {
         UserHandle userHandle = new UserHandle();
         switch (option){
             case 1:
-                userHandle.login(scanner,users);
+                userHandle.login(scanner,users,books,book,tickets);
                 break;
             case 2:
                 System.out.println("Mời bạn nhập email đã đăng ký: ");
@@ -58,11 +60,11 @@ public class Menu {
                 break;
             default:
                 System.out.println("Nhập dữ liệu không đúng.");
-                menuLoginFalse(scanner,users);
+                menuLoginFalse(scanner,users,books,book,tickets);
                 break;
         }
     }
-    public void menuLoginManager(Scanner scanner, ArrayList<User> users,User user){
+    public void menuLoginManager(Scanner scanner, ArrayList<User> users,User user,ArrayList<Book> books,Book book,ArrayList<Ticket>tickets){
         System.out.println("1 - Quản lý tài liệu ");
         System.out.println("2 - Quản lý người đọc ");
         System.out.println("3 - Quản lý mượn trả ");
@@ -79,36 +81,42 @@ public class Menu {
         BookHandle bookHandle = new BookHandle();
         switch (option){
             case 1:
-                userHandle.changeUsername(scanner,users);
-                menuLoginManager(scanner,users,user);
+                bookHandle.addBook(scanner,books);
+                bookHandle.findBookByName(scanner,books);
+                bookHandle.editBook(scanner,books);
+                bookHandle.removeBook(scanner,books);
+                menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 2:
+                userHandle.changePassword(scanner,user,users);
+                userHandle.createUser(scanner,users);
                 userHandle.changeEmail(scanner,users);
-                menuLoginManager(scanner,users,user);
+                userHandle.findUserByUsername(scanner,users);
+                menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 3:
-                userHandle.changePassword(scanner,user,users);
-                menuLoginManager(scanner,users,user);
+
+                menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 4:
                 userHandle.changeEmail(scanner,users);
                 userHandle.changePassword(scanner,user,users);
                 userHandle.changeUsername(scanner,users);
-                menuLoginManager(scanner,users,user);
+                menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 5:
-                menuLogin(scanner,users);
+                menuLogin(scanner,users,books,book,tickets);
                 break;
             case 0:
                 System.exit(0);
                 break;
             default:
                 System.out.println("Nhập dữ liệu không đúng.");
-                menuLoginManager(scanner,users,user);
+                menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
         }
     }
-    public void menuLoginReader(Scanner scanner, ArrayList<User> users,User user){
+    public void menuLoginReader(Scanner scanner, ArrayList<User> users, User user, ArrayList<Book> books,Book book, ArrayList<Ticket> tickets){
         System.out.println("1 - Tìm kiếm sách");
         System.out.println("2 - Mượn sách ");
         System.out.println("3 - Trả sách ");
@@ -123,26 +131,28 @@ public class Menu {
         }
         BookHandle bookHandle = new BookHandle();
         UserHandle userHandle = new UserHandle();
+        Library library = new Library();
         switch (option){
             case 1:
-
-                menuLoginReader(scanner,users,user);
+                bookHandle.findBookByName(scanner,books);
+                menuLoginReader(scanner,users,user,books,book,tickets);
                 break;
             case 2:
-
-                menuLoginReader(scanner,users,user);
+                library.borrowBook(scanner,books,book,tickets,user);
+                menuLoginReader(scanner,users,user,books,book,tickets);
                 break;
             case 3:
-                menuLoginReader(scanner,users,user);
+
+                menuLoginReader(scanner,users,user,books,book,tickets);
                 break;
             case 4:
                 userHandle.changeEmail(scanner,users);
                 userHandle.changePassword(scanner,user,users);
                 userHandle.changeUsername(scanner,users);
-                menuLoginReader(scanner,users,user);
+                menuLoginReader(scanner,users,user,books,book,tickets);
                 break;
             case 5:
-                menuLogin(scanner,users);
+                menuLogin(scanner,users,books,book,tickets);
                 break;
             case 0:
                 System.exit(0);

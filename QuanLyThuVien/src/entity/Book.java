@@ -57,4 +57,14 @@ public class Book {
         this.amount = amount;
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", subject='" + subject + '\'' +
+                ", author='" + author + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

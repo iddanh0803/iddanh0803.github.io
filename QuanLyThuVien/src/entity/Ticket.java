@@ -47,4 +47,14 @@ public class Ticket {
     public void setPayDate(LocalDate payDate) {
         this.payDate = payDate;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "user=" + user +
+                ", book=" + book +
+                ", loanDate=" + loanDate +
+                ", payDate=" + payDate +
+                '}';
+    }
 }

@@ -9,7 +9,7 @@ public class User {
     private String role;
 
 
-    public User( String username, String email, String password, String role) {
+    public User( String username, String email, String password,String role) {
         this.id = ++autoId;
         this.username = username;
         this.email = email;
@@ -66,4 +66,5 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
 }
