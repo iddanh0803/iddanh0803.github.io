@@ -79,23 +79,18 @@ public class Menu {
         }
         UserHandle userHandle = new UserHandle();
         BookHandle bookHandle = new BookHandle();
+        MenuManage menuManage = new MenuManage();
         switch (option){
             case 1:
-                bookHandle.addBook(scanner,books);
-                bookHandle.findBookByName(scanner,books);
-                bookHandle.editBook(scanner,books);
-                bookHandle.removeBook(scanner,books);
+                menuManage.menuManageBook(scanner,users,user,books,book,tickets);
                 menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 2:
-                userHandle.changePassword(scanner,user,users);
-                userHandle.createUser(scanner,users);
-                userHandle.changeEmail(scanner,users);
-                userHandle.findUserByUsername(scanner,users);
+                menuManage.menuManageUser(scanner,users,user,books,book,tickets);
                 menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 3:
-
+                menuManage.menuTicket(scanner,tickets,book,user,users,books);
                 menuLoginManager(scanner,users,user,books,book,tickets);
                 break;
             case 4:

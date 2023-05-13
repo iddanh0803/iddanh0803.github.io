@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class UserHandle {
     //Tạo tài khản
     public void createUser(Scanner scanner, ArrayList<User> users){
-        String role = "";
+        String role = "reader";
         System.out.println("Nhập username: ");
         String username = scanner.nextLine();
 
@@ -47,12 +47,13 @@ public class UserHandle {
                 break;
             }
         }
-        if (!check){
+        if (check){
             System.out.println("Username hoặc email đã được sử dụng. ");
             createUser(scanner,users);
         }else {
             User user = new User(username,email,password,role);
             users.add(user);
+            System.out.println("Đăng kí thành công.");
         }
     }
     Menu menu = new Menu();
@@ -134,11 +135,14 @@ public class UserHandle {
     public User findUserByUsername(Scanner scanner,ArrayList<User> users) {
         System.out.println("Mời bạn nhập username muốn tìm: ");
         String username = scanner.nextLine();
+        boolean check = false;
         for (User user : users) {
             if (user.getUsername().equals(username)) {
-                return user;
+                System.out.println(user);
+                check = true;
+                break;
             }
-        }
+        }if (!check) System.out.println("Không tìm thấy User.");
         return null;
     }
     //Đổi Username
@@ -183,6 +187,38 @@ public class UserHandle {
                 user.setEmail(emailNew);
                 System.out.println("Đổi email thành công.");
             }
+        }
+    }
+    public void editUser(Scanner scanner,ArrayList<User>users){
+        System.out.println("Mời bạn nhập Id của user muốn sửa: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        boolean checkId = false;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId()==id){
+                changeUsername(scanner,users);
+                changeEmail(scanner,users);
+                changeEmail(scanner,users);
+                checkId = true;
+            }
+        }
+        if (!checkId) System.out.println("Không tìm thấy user.");
+    }
+    public void removeUser(Scanner scanner, ArrayList<User>users){
+        System.out.println("Mời bạn nhập Id của User muốn xóa: ");
+        int id = Integer.parseInt(scanner.nextLine());
+        boolean checkId = false;
+        int delete = -1;
+        for (int i = 0; i < users.size(); i++) {
+              if (users.get(i).getId()==id){
+                  checkId = true;
+                  delete  = i;
+                  break;
+              }
+        }
+        if (!checkId) System.out.println("Không tìm thấy User.");
+        else {
+            users.remove(delete);
+            System.out.println("Xóa User thành công.");
         }
     }
 }

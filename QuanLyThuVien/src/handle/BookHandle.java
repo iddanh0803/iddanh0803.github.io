@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class BookHandle {
     //Thêm sách
     public void addBook(Scanner scanner, ArrayList<Book> books) {
+
         System.out.println("Mời bạn nhập tên sách: ");
         String name = scanner.nextLine();
         System.out.println("Mời bạn nhập chủ đề: ");
@@ -18,9 +19,20 @@ public class BookHandle {
         String author = scanner.nextLine();
         System.out.println("Mời bạn nhập số lượng: ");
         int amount = Integer.parseInt(scanner.nextLine());
-        Book book = new Book(name, subject, author, amount);
-        books.add(book);
-        System.out.println("Thêm sách thành công.");
+        boolean checkBook = false;
+        for (Book b : books
+        ) {
+            if (b.getName().equalsIgnoreCase(name) && b.getAuthor().equalsIgnoreCase(author)) {
+                b.setAmount(b.getAmount()+amount);
+                checkBook = true;
+                System.out.println("Thêm sách thành công.");
+                break;
+            }
+        }if (!checkBook){
+            Book book = new Book(name, subject, author, amount);
+            books.add(book);
+            System.out.println("Thêm sách thành công.");
+        }
     }
 
     //Xóa sách
@@ -36,7 +48,7 @@ public class BookHandle {
                 break;
             }
         }
-        if (checkName = false) {
+        if (!checkName) {
             System.out.println("Không tìm thấy sách.");
         } else {
             books.remove(delete);
@@ -70,18 +82,21 @@ public class BookHandle {
                 checkName = true;
             }
         }
-        if (checkName = false) System.out.println("Không tìm thấy sách.");
+        if (!checkName) System.out.println("Không tìm thấy sách.");
     }
 
     public Book findBookByName(Scanner scanner, ArrayList<Book> books) {
         System.out.println("Mời bạn nhập tên sách muốn tìm: ");
         String name = scanner.nextLine();
+        boolean check = false;
         for (int i = 0; i < books.size(); i++) {
-            if (books.get(i).getName().equalsIgnoreCase(name)) System.out.println(books.get(i));
-            ;
+            if (books.get(i).getName().equalsIgnoreCase(name)) {
+                System.out.println(books.get(i));
+                check = true;
+                break;
+            }
         }
+        if (!check) System.out.println("Không tìm thấy sách.");
         return null;
     }
-
-
 }

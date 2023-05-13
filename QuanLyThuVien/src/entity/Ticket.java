@@ -8,6 +8,8 @@ public class Ticket {
     private Book book;
     private LocalDate loanDate;
     private LocalDate payDate;
+    private String status;
+
 
     public Ticket(User user, Book book, LocalDate loanDate, LocalDate payDate) {
         this.user = user;
