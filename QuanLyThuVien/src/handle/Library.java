@@ -3,6 +3,7 @@ package handle;
 import entity.Book;
 import entity.Ticket;
 import entity.User;
+import org.ietf.jgss.GSSContext;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -64,8 +65,12 @@ public class Library {
 
     public void returnBook(Scanner scanner,ArrayList<Ticket> tickets,Book book,User user) {
         boolean found = false;
+        System.out.println("Mời bạn nhập tên sách muốn trả: ");
+        String nameBook = scanner.nextLine();
+        System.out.println("Mời bạn nhập username của người mượn: ");
+        String username = scanner.nextLine();
         for (int i = 0; i < tickets.size(); i++) {
-            if (tickets.get(i).getBook().equals(book) && tickets.get(i).getUser().equals(user)){
+            if (tickets.get(i).getBook().getName().equals(nameBook) && tickets.get(i).getUser().getUsername().equals(username)){
                 tickets.get(i).setStatus("Đã trả sách.");
                 System.out.println("Đã trả sách thành công.");
                 found = true;
