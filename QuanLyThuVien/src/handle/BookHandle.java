@@ -93,6 +93,28 @@ public class BookHandle {
             if (books.get(i).getName().equalsIgnoreCase(name)) {
                 System.out.println(books.get(i));
                 check = true;
+
+            }
+        }
+        if (!check) System.out.println("Không tìm thấy sách.");
+        return null;
+    }
+    public Book findBookById(Scanner scanner, ArrayList<Book> books){
+        int id = 0;
+        System.out.println("Mời bạn nhập Id sách muôn tìm: ");
+        while (true){
+            try{
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            }catch (Exception exception){
+                System.out.println("Nhập dữ liệu không đúng.");
+            }
+        }
+        boolean check = false;
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getId()==id){
+                System.out.println(books.get(i));
+                check = true;
                 break;
             }
         }

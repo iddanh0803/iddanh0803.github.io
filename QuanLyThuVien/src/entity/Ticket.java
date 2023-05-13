@@ -8,7 +8,7 @@ public class Ticket {
     private Book book;
     private LocalDate loanDate;
     private LocalDate payDate;
-    private String status;
+    private String status ="Chưa trả sách.";
 
 
     public Ticket(User user, Book book, LocalDate loanDate, LocalDate payDate) {
@@ -50,6 +50,10 @@ public class Ticket {
         this.payDate = payDate;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -57,6 +61,7 @@ public class Ticket {
                 ", book=" + book +
                 ", loanDate=" + loanDate +
                 ", payDate=" + payDate +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

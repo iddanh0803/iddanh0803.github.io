@@ -75,7 +75,7 @@ public class MenuManage {
                     menuManageUser(scanner,users,user,books,book,tickets);
                     break;
                 case 2:
-                    userHandle.editUser(scanner,users);
+                    userHandle.editUser(scanner,users,user);
                     menuManageUser(scanner,users,user,books,book,tickets);
                     break;
                 case 3:
