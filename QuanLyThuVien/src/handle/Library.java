@@ -35,10 +35,29 @@ public class Library {
         tickets.add(ticket);
     }
 
-    public void borrowBook(Scanner scanner, ArrayList<Book> books, Book book, ArrayList<Ticket> tickets, User user) {
-        BookHandle bookHandle = new BookHandle();
-        bookHandle.findBookByName(scanner,books);
-        bookHandle.findBookById(scanner,books);
+    public void borrowBook(Scanner scanner, ArrayList<Book> books,Book book, ArrayList<Ticket> tickets, User user) {
+        System.out.println("Mời bạn nhập id của sách muốn mượn: ");
+        int id = 0;
+        while (true){
+            try{
+                id = Integer.parseInt(scanner.nextLine());
+                break;
+            }catch (Exception exception){
+                System.out.println("Nhập dữ liệu không đúng.");
+            }
+        }
+        boolean check = false;
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getId()==id){
+                check = true;
+                System.out.println(books.get(i));
+                break;
+            }
+        }
+        if (!check) {
+            System.out.println("Không tìm thấy sách.");
+            borrowBook(scanner,books,book,tickets,user);
+        }
         int amount = 0;
         while (true){
             System.out.println("Mời bạn nhập số lượng sách muốn mượn: ");
@@ -47,23 +66,26 @@ public class Library {
             } catch (Exception exception) {
                 System.out.println("Nhập dữ liệu không đúng. ");
             }
-            if (amount > book.getAmount()) {
+            if (amount > book.getAmount() ) {
                 System.out.println("Số lượng sách không đủ.");
-                borrowBook(scanner, books, book, tickets, user);
+                borrowBook(scanner,books,book,tickets,user);
             } else if (amount < 1) {
                 System.out.println("Nhập dữ liệu không đúng.");
-                borrowBook(scanner, books, book, tickets, user);
-            }else {
-                book.setAmount(book.getAmount()-amount);
-                break;
+                borrowBook(scanner,books,book,tickets,user);
+            }else
+
+            for (int i = 0; i < books.size(); i++) {
+                if (books.get(i).getId()==id){
+                    books.get(i).setAmount(books.get(i).getAmount()-amount);
+                }
             }
+                break;
         }
-        Library library = new Library();
-        library.createTicket(scanner, tickets, book, user);
+        createTicket(scanner, tickets, book, user);
         System.out.println("Mượn sách thành công.");
     }
 
-    public void returnBook(Scanner scanner,ArrayList<Ticket> tickets,Book book,User user) {
+    public void returnBook(Scanner scanner,ArrayList<Ticket> tickets) {
         boolean found = false;
         System.out.println("Mời bạn nhập tên sách muốn trả: ");
         String nameBook = scanner.nextLine();
@@ -78,7 +100,15 @@ public class Library {
             }
         }
         if (!found){
-            System.out.println("Không tìm thấy thông tin sách.");
+            System.out.println("Không tìm thấy thông tin mượn sách.");
+        }
+    }
+    public void updateAmout(Ticket ticket,ArrayList<Ticket> tickets){
+        for (int i = 0; i < tickets.size(); i++) {
+            Ticket ticket1 = tickets.get(i);
+            if (ticket1.getUser().equals(ticket.getUser()) && ticket1.getBook().equals(ticket.getBook())){
+                ticket1.setStatus("Done");
+            }
         }
     }
 }

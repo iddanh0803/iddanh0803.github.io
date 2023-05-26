@@ -113,12 +113,15 @@ public class BookHandle {
         boolean check = false;
         for (int i = 0; i < books.size(); i++) {
             if (books.get(i).getId()==id){
-                System.out.println(books.get(i));
                 check = true;
+                System.out.println(books.get(i));
                 break;
             }
         }
-        if (!check) System.out.println("Không tìm thấy sách.");
+        if (!check) {
+            System.out.println("Không tìm thấy sách.");
+            findBookById(scanner,books);
+        }
         return null;
     }
 }

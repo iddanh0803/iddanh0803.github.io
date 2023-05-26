@@ -116,6 +116,7 @@ public class Menu {
     public void menuLoginReader(Scanner scanner, ArrayList<User> users, User user, ArrayList<Book> books,Book book, ArrayList<Ticket> tickets){
         int option = 0;
         do {
+            System.out.println(books);
             System.out.println("1 - Tìm kiếm sách");
             System.out.println("2 - Mượn sách ");
             System.out.println("3 - Trả sách ");
@@ -140,7 +141,7 @@ public class Menu {
                     menuLoginReader(scanner,users,user,books,book,tickets);
                     break;
                 case 3:
-                    library.returnBook(scanner,tickets,book,user);
+                    library.returnBook(scanner,tickets);
                     menuLoginReader(scanner,users,user,books,book,tickets);
                     break;
                 case 4:
