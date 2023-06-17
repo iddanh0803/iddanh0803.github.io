@@ -1,141 +1,195 @@
-CREATE DATABASE quanlybanhang;
-USE quanlybanhang;
-CREATE TABLE tbl_nguoidung (
-  id int PRIMARY KEY AUTO_INCREMENT,
-  ten varchar(100),
-  sdt varchar(12),
-  diachi varchar(255),
-  username varchar(100),
-  password varchar(50),
-  email varchar(100),
-  ngayVaoLam timestamp,
-  vaitro_id integer,
-  cccd varchar(20),
-  trangThai integer,
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE DATABASE quanlythuvien;
+USE quanlythuvien;
+
+CREATE table users(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    name varchar(50) NOT NULL,
+    phoneNumber varchar(12) NOT NULL UNIQUE,
+    address varchar(50),
+    email varchar(50) NOT NULL UNIQUE,
+    password varchar(20) NOT NULL,
+    ciid varchar(20) NOT NULL UNIQUE,
+    joinDate date ,
+    role_id int NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_user_role FOREIGN KEY (role_id) REFERENCES roles(id),
+    CONSTRAINT fk_user_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
 );
-CREATE Table tbl_vaitro (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  khóa varchar(255),
-  tenVaiTro varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE roles(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    khoa varchar(20) NOT NULL COMMENT "1. reader | 2. employ | 3. admin",
+    role varchar(20) DEFAULT " reader " NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+
 );
-CREATE Table tbl_luong (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  nhanvien_id integer,
-  luongCung float,
-  thuong float,
-  phat float,
-  thue float,
-  soNgayCong float,
-  thang integer,
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE tbl_status(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    khoa varchar(20) NOT NULL COMMENT "1. active | 2. done | 3. non-avtive",
+    val varchar(20) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
 );
-CREATE Table tbl_doanhso (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  nhanvien_id integer,
-  soHoaDon integer, /*countable*/
-  heSo float,
-  thang integer,
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE category(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(20) NOT NULL,
+    image varchar(255) NOT NULL,
+    description varchar(255) NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_category_tbl_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
 );
-CREATE Table tbl_sanpham (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  tenSanPham varchar(255),
-  soLuong integer,
-  gia float,
-  danhmuc_id integer,
-  nhacungcap_id integer,
-  ngaySanXuat date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  moTa varchar(255),
-  trangThai varchar(50),
-  hinhAnh varchar(255),
-  chiTiet varchar(255),
-  thongSo varchar(255),
-  ngayNhap date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE book(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(255) NOT NULL,
+    storage_id int NOT NULL,
+    amount int NOT NULL,
+    price float NOT NULL,
+    category_id int NOT NULL,
+    publisher_id int NOT NULL,
+    publishDate date,
+    description varchar(255) NOT NULL,
+    image varchar(255) NOT NULL,
+    language_id int NOT NULL,
+    author_id int NOT NULL,
+    bookType_id int NOT NULL,
+    dateIn date,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_book_category FOREIGN KEY (category_id) REFERENCES category(id),
+    CONSTRAINT fk_book_tbl_storage FOREIGN KEY (storage_id) REFERENCES tbl_storages(id),
+    CONSTRAINT fk_book_publisher FOREIGN KEY (publisher_id) REFERENCES publisher(id),
+    CONSTRAINT fk_book_tbl_language FOREIGN KEY (language_id) REFERENCES tbl_language(id),
+    CONSTRAINT fk_book_tbl_authors FOREIGN KEY (authors_id) REFERENCES tbl_authors(id),
+    CONSTRAINT fk_book_booktype FOREIGN KEY (bookType_id) REFERENCES booktype(id)
 );
-CREATE Table tbl_giohang (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  khachhang_id integer,
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
-); 
-CREATE Table tbl_chitietgiohang (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  giohang_id integer,
-  sanpham_id integer,
-  soLuong integer,
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_tbl_luong_tbl_giohang FOREIGN KEY (giohang_id) REFERENCES tbl_giohang(id),
-  CONSTRAINT fk_tbl_luong_tbl_sanpham FOREIGN KEY (sanpham_id) REFERENCES tbl_sanpham(id)
+
+CREATE table tbl_authors(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(50) NOT NULL,
+    country varchar(20),
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+
 );
-CREATE Table tbl_hoadon (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  khachhang_id integer,
-  giohang_id integer,
-  nhanvien_id integer,
-  trangThai varchar(50),
-  ngayLapHD datetime,
-  diaChi varchar(255),
-  sdt varchar(12),
-  ghiChu varchar(255),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE publisher(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(50) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+
 );
-CREATE Table tbl_chitiethoadon (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  giohang_id integer,
-  sanpham_id integer,
-  soLuong integer,
-  donGia float,
-  tenSanPham varchar(255),
-  hinhAnh varchar(255),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE booktype(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(50) NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_booktype_tbl_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
 );
-CREATE Table tbl_danhgia (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  sanpham_id integer,
-  diemSo float,
-  khachhang_id integer,
-  comment varchar(255),
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE tbl_language(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    language varchar(20) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+
 );
-CREATE Table nhacungcap (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  tenNCC varchar(100),
-  moTa varchar(255),
-  hinhAnh varchar(255),
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE tbl_storages(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name varchar(20) NOT NULL,
+    address varchar(20) NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_storages_tbl_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
 );
-CREATE Table danhmuc (
-  id integer PRIMARY KEY AUTO_INCREMENT,
-  tenDanhMuc varchar(50),
-  hinhAnh varchar(255),
-  moTa varchar(255),
-  trangThai varchar(50),
-  created_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at date NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  deleted_at date NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE tbl_borrowticket(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    reader_id int NOT NULL,
+    employ_id int NOT NULL,
+    borrowDate date NOT NULL,
+	appointDate date NOT NULL,
+    phoneNumber varchar(12) NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_tbl_borrowticket_users FOREIGN KEY (reader_id) REFERENCES users(id),
+    CONSTRAINT fk_tbl_borrowticket_users FOREIGN KEY (employ_id) REFERENCES users(id),
+    CONSTRAINT fk_tbl_borrowticket_tbl_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
 );
+CREATE TABLE tbl_returnticket(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    reader_id int NOT NULL,
+    employ_id int NOT NULL,
+    borrowTicket_id int NOT NULL,
+    returnDate date NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+	CONSTRAINT fk_tbl_returnticket_users FOREIGN KEY (reader_id) REFERENCES users(id),
+    CONSTRAINT fk_tbl_returnticket_users FOREIGN KEY (employ_id) REFERENCES users(id),
+    CONSTRAINT fk_tbl_returnticket_tbl_status FOREIGN KEY (status_id) REFERENCES tbl_status(id)
+);
+
+CREATE TABLE tbl_detailborrowticket(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    borrowTicket_id int NOT NULL,
+    book_id int NOT NULL,
+    amount int NOT NULL,
+    image varchar(255) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL,
+    CONSTRAINT fk_tbl_detailborrowticket_tbl_borrowticket FOREIGN KEY (borrowTicket_id) REFERENCES tbl_borrowticket(id),
+    CONSTRAINT fk_tbl_detailborrowticket_book FOREIGN KEY (borrowTicket_id) REFERENCES tbl_borrowticket(id)
+);
+
+CREATE TABLE tbl_detailreturnticket(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    returnTicket_id int NOT NULL,
+    book_id int NOT NULL,
+    amount int NOT NULL,
+    image varchar(255) NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+
+);
+
+CREATE TABLE punnish(
+	id int PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    returnTicket_id int NOT NULL,
+    fine float NOT NULL,
+    status_id int NOT NULL,
+    created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at timestamp NULL
+);
+
+
+
