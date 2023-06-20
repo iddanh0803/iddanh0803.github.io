@@ -1,0 +1,10 @@
+---Bài kiểm tra cuối khóa môn CSDL---
+Bảng roles lưu trữ các role của người dùng trong hệ thống.
+Bảng status lưu trữ trạng thái của người dùng, khóa học, lớp học, điểm danh.
+Bảng User lưu trữ thông tin của tất cả người dùng trong hệ thống, bao gồm cả giáo viên, học viên và admin.
+Bảng Course lưu trữ thông tin về các khoá học trong hệ thống, bao gồm tên khoá học, ngày bắt đầu và kết thúc khoá học, và admin phụ trách khoá học.
+Bảng Class lưu trữ thông tin về các lớp học trong hệ thống, bao gồm tên lớp học, khoá học tương ứng và admin phụ trách lớp học.
+Bảng Enrollment lưu trữ thông tin về việc đăng ký của học viên cho các lớp học trong hệ thống.
+Bảng Lecture lưu trữ thông tin về các bài giảng trong hệ thống, bao gồm tên bài giảng, mô tả, giáo viên phụ trách bài giảng, và lớp học tương ứng.
+Bảng Attendance lưu trữ thông tin về việc điểm danh của học viên trong các bài giảng.
+Bảng Grade lưu trữ thông tin về việc chấm điểm của giáo viên cho các học viên trong các bài giảng.
