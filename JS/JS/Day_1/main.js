@@ -17,7 +17,7 @@ function reverseString(str="hello"){
 }
 console.log(reverseString("hello"));
 // Bài 3:
-function translate(){
+function translate(code){
     let code = "";
     switch (code){
         case  "0086":{
@@ -38,6 +38,7 @@ function translate(){
 function subString(str = "xinchaocacbandenvoiTechmaster"){
     if(str.length > 15 ){
         str.substring(0,10);
+        return str;
     }else return str
     
 }
