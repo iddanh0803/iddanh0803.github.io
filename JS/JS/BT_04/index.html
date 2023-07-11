@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            display: block;
+            background-color: #f3f3f3;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            float: left;
+            margin: 5px;
+        }
+
+        .box:hover {
+            transform: scale(.9);
+            transition-duration: .5s;
+            opacity: .8;
+            cursor: pointer;
+        }
+
+        .box:active {
+            transform: scale(1.5);
+            transition-duration: .5s;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <!-- Tiêu đề -->
+        <h1> JS DOM</h1>
+
+        <!-- Nút để tạo ra thêm các box mới -->
+        <button id="btn">More boxes</button>
+
+        <!-- Hiển thị số lượng total box -->
+        <h4 id="score"> Total box: <span class="points">0</span></h4>
+
+        <!-- Container để chứa các box -->
+        <div class="boxes">
+        </div>
+    </div>
+
+    <script>
+        // Mảng chứa các mã màu để tạo ra các box
+        let colors = [
+            '#3498db',
+            '#9b59b6',
+            '#e74c3c',
+            '#2c3e50',
+            '#d35400',
+        ];
+
+        // Lấy thẻ div chứa các box, thẻ span hiển thị số lượng total box, và nút để tạo ra thêm các box mới
+        let boxContainer = document.querySelector('.boxes');
+        let points = document.querySelector('.points');
+        let btn = document.querySelector('#btn');
+
+        // Biến đếm số lượng total box
+        let totalBox = 0;
+
+        // Hàm tạo ra một box mới
+        function createBox(color) {
+            // Tạo một thẻ div mới, đặt class là 'box', và thiết lập background color tương ứng với một phần tử trong mảng colors
+            let box = document.createElement('div');
+            box.classList.add('box');
+            box.style.backgroundColor = color;
+
+            // Thêm sự kiện click vào box để xóa box đó và giảm số lượng total box đi một
+            box.addEventListener('click', function() {
+                box.remove();
+                totalBox--;
+                points.innerText = totalBox;
+            });
+
+            // Thêm box mới vào container, tăng số lượng total box lên một, và cập nhật hiển thị số lượng total box
+            boxContainer.appendChild(box);
+            totalBox++;
+            points.innerText = totalBox;
+        }
+
+        // Tạo ra các box ban đầu bằng cách lặp qua mảng colors và gọi hàm createBox với từng màu trong mảng
+        colors.forEach(function(color) {
+            createBox(color);
+        });
+
+        // Thêm sự kiện click vào nút 'More boxes' để tạo ra thêm 5 box mới với màu ngẫu nhiên từ mảng colors
+        // và thêm chúng vào container tương tự như cách chúng ta đã làm ở trên.
+        btn.addEventListener('click', function() {
+            for (let i = 0; i < 5; i++) {
+                createBox(colors[Math.floor(Math.random() * colors.length)]);
+            }
+        });
+    </script>
+</body>
+</html>

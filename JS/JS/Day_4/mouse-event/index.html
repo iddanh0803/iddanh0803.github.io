@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="box"></div> -->
+    <script>
+        // C1 : Mỗi khi tạo hình tròn mới thì xóa hết hình tròn cũ trước đó (nếu có)
+        document.addEventListener('click', function(e) {
+            // Xóa hết hình tròn trước đó đi (nếu có)
+            let preBox = document.querySelector("div")
+            if(preBox){
+                preBox.parentElement.removeChild(preBox);
+            }
+            // Tạo thẻ div
+            const box = document.createElement("div")
+            // Add class "box"
+            box.classList.add("box")
+            // Gán vị trí cho "box" top-left dựa trên giá trị offsetX, offsetY trong biến event
+            box.style.left = event.offsetX - 50 + "px" 
+            box.style.top = event.offsetY - 50 + "px"
+            // Cho thẻ div xuất hiện trong body
+            document.body.appendChild(box)
+            
+        })
+        // C2 : Lần thứ 1 thì tọa hình tròn mới -> dịch chuyển hình tròn ban đầu đi
+        document.addEventListener('click', function(e) {
+            
+        })
+
+// document.addEventListener('mousedown', function() {
+//  console.log('mousedown');
+// })
+
+// document.addEventListener('mousemove', function() {
+//  console.log('mousemove');
+// })
+
+// document.addEventListener('mouseup', function() {
+//  console.log('mouseup');
+// })
+    </script>
+</body>
+</html>

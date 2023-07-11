@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.4s;
+        }
+
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.4s;
+        }
+
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box2"></div>
+    <script>
+        const body = document.body;
+        //         document.addEventListener("keydown", function (event) {
+        //     if (event.keyCode == 13) {
+        //         console.log("Bạn thật đẹp trai!");
+        //     } else {
+        //         console.log("Bấm phím Enter đi, có điều bất ngờ đó!")
+        //     }
+        // });
+        document.addEventListener('keydown', function (e) {
+            if (event.keyCode == 13) {
+                const box = document.createElement("div")
+                box.classList.add("box")
+                box.style.left = Math.floor(Math.random() * (window.innerWidth - 50)) + "px";
+                box.style.top = Math.floor(Math.random() * (window.innerHeight - 50)) + "px";
+                document.body.appendChild(box)
+            }
+        })
+        document.addEventListener('keydown', function (e) {
+            if (event.keyCode == 32) {
+                const box1 = document.createElement("div")
+                box1.classList.add("box1")
+                box1.style.left = Math.floor(Math.random() * (window.innerWidth - 50)) + "px";
+                box1.style.top = Math.floor(Math.random() * (window.innerHeight - 50)) + "px";
+                document.body.appendChild(box1)
+            }
+        })
+        document.addEventListener('keydown', function (e) {
+            if (event.keyCode !== 13 && event.keyCode !== 32 && event.key !== "ArrowUp" && event.key !== "ArrowDown" && event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+                const hexChars = "0123456789ABCDEF";
+                let hex = "#";
+                for (let i = 0; i < 6; i++) {
+                    hex += hexChars[Math.floor(Math.random() * 16)];
+                }
+                body.style.backgroundColor = hex;
+            }
+        })
+        const box2 = document.querySelector(".box2")
+        document.addEventListener('keydown', function (event) {
+            console.log("abc")
+            if (event.keyCode == 38) {
+                // Di chuyển hình tròn lên 20px
+
+                box2.style.top = box2.offsetTop - 20 + "px";
+                console.log("1")
+            } else if (event.keyCode == 40) {
+                // Di chuyển hình tròn xuống 20px
+
+                box2.style.top = box2.offsetDown + 20 + "px";
+                console.log("2")
+            } else if (event.keyCode == 37) {
+                // Di chuyển hình tròn sang trái 20px
+
+                box2.style.left = event.offsetX - 20 + "px";
+                console.log("3")
+            } else if (event.keyCode == 39) {
+                // Di chuyển hình tròn sang phải 20px
+
+                box2.style.left = event.offsetX + 20 + "px";
+                console.log("4")
+            }
+        })
+    </script>
+</body>
+
+</html>
