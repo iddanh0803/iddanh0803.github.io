@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breeds List</title>
+    <style>
+      img {
+        width: 600px;
+        height: 600px;
+        display: block;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Breeds List</h1>
+    <label for="breeds-list"></label>
+    <select id="breeds-list"></select>
+    <button onclick="getSubBreeds()">Get Sub Breeds</button>
+
+    <div id="sub-breeds-list">
+      <ul id="sub-breeds"></ul>
+    </div>
+    <div id="sub-breed-image"></div>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
