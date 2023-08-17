@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Color Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button onclick="getRandomColor(1)">Random Color Name</button>
+    <button onclick="getRandomColor(2)">Random HEX Color</button>
+    <button onclick="getRandomColor(3)">Random RGB Color</button>
+
+    <script>
+        function getRandomColor(type) {
+            $.ajax({
+                url: "http://localhost:8081/random-color?type=" + type,
+                type: "GET",
+                success: function(data) {
+                    changeBackgroundColor(data);
+                },
+                error: function() {
+                    alert("Error occurred");
+                }
+            });
+        }
+
+        function changeBackgroundColor(color) {
+            $("body").css("background-color", color);
+        }
+    </script>
+</body>
+</html>

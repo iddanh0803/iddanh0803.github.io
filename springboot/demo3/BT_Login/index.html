@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div id="userInfo" style="display: none;">
+        <h2>User Information</h2>
+        <p id="usernameInfo"></p>
+        <p id="emailInfo"></p>
+        <p id="avatarInfo"></p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function login() {
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            var requestData = {
+                "username": username,
+                "password": password
+            };
+
+            $.ajax({
+                url: "http://localhost:8080/login",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(requestData),
+                success: function(data) {
+                    $("#loginForm").hide();
+                    $("#usernameInfo").text("Username: " + data.username);
+                    $("#emailInfo").text("Email: " + data.email);
+                   $("#avatarInfo").text("Avatar: " + data.avatar);
+                    $("#userInfo").show();
+                },
+                error: function() {
+                    alert("Invalid username or password");
+                }
+            });
+        }
+
+        function logout() {
+            $("#usernameInfo").text("");
+            $("#emailInfo").text("");
+            $("#avatarInfo").text("");
+            $("#userInfo").hide();
+            $("#loginForm").show();
+        }
+    </script>
+</body>
+</html>
