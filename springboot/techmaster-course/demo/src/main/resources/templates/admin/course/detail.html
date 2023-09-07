@@ -123,9 +123,9 @@
             }
         });
     </script>
+
     <script th:inline="javascript">
         async function deleteCourse(courseId) {
-            if (confirm('Bạn có chắc chắn muốn xóa khóa học này?')) {
                 try {
                     const response = await fetch(`/courses/${courseId}`, {
                         method: 'DELETE',
@@ -140,7 +140,6 @@
                     console.error(error);
                 }
             }
-        }
     </script>
 
     <script>
