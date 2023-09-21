@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Danh sách User</title>
+</head>
+<body>
+<h1>Danh sách User</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Tên</th>
+    <th>Số điện thoại</th>
+    <th>Địa chỉ</th>
+  </tr>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.phone}"></td>
+    <td th:text="${user.address}"></td>
+  </tr>
+</table>
+</body>
+</html>

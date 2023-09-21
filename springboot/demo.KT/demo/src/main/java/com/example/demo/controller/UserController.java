@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AvatarDto;
+import com.example.demo.dto.UserDto;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.request.PasswordUpdateRequest;
@@ -54,14 +56,23 @@ public class UserController {
     }
 
     @PutMapping("/api/v1/users/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UpsertUserRequest request){
-        User user = userRepository.updateUser(id,request);
-        return ResponseEntity.ok(user);
+    public ResponseEntity<?> updateUser(@PathVariable Integer id, @RequestBody UserDto userDto){
+        User user = userRepository.updateUser(id,userDto);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/api/v1/users/{id}/update-avatar")
-    public void changeAvatar(@PathVariable Integer id, @RequestBody UpsertUserRequest request){
-        userRepository.changeAvatar(id,request);
+    public ResponseEntity<?> changeAvatar(@PathVariable Integer id, @RequestBody AvatarDto avatarDto){
+       User user = userRepository.changeAvatar(id,avatarDto);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/api/v1/users/{id}/update-password")
@@ -70,7 +81,12 @@ public class UserController {
     }
 
     @DeleteMapping("/api/v1/users/{id}")
-    public void deleteUser(@PathVariable Integer id){
-        userRepository.deleteUser(id);
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id){
+        boolean deleted = userRepository.deleteUser(id);
+        if (deleted){
+            return ResponseEntity.noContent().build();
+        }else {
+            return ResponseEntity.noContent().build();
+        }
     }
 }

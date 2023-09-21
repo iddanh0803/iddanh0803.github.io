@@ -15,7 +15,7 @@ import java.util.List;
 
 @Controller
 
-public class WebController {
+public class  WebController {
     private final WebService webService;
 
     public WebController(WebService webService) {
