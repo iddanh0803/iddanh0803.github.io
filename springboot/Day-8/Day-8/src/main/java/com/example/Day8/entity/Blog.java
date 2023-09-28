@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -21,13 +22,15 @@ public class Blog {
     private Integer id;
     private String title;
     private String slug;
+    @Column(columnDefinition = "text")
     private String description;
+    @Column(columnDefinition = "text")
     private String content;
     private String thumbnail;
     private LocalDateTime createdAt;
     private LocalDateTime publishedAt;
     private LocalDateTime updatedAt;
-    private String status;
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -36,16 +39,29 @@ public class Blog {
     @ManyToMany
     @JoinTable(
             name = "blog_category",
-            joinColumns = @JoinColumn(name = "category_id"),
-            inverseJoinColumns = @JoinColumn(name = "bool_id")
+            joinColumns = @JoinColumn(name = "blog_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories;
 
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
+
+
     @PrePersist
-    public void prePersist(){
+    public void prePersist() {
         createdAt = LocalDateTime.now();
-        publishedAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
+        updatedAt = createdAt;
+        if(status) {
+            publishedAt = createdAt;
+        }
     }
 
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+        if(status) {
+            publishedAt = updatedAt;
+        }
+    }
 }

@@ -18,7 +18,7 @@ class Day8ApplicationTests {
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
-	private RoleRepository roleRepositor;
+	private RoleRepository roleRepository;
 	@Autowired
 	private ImageRepository imageRepository;
 	@Autowired
@@ -44,36 +44,39 @@ class Day8ApplicationTests {
 		for (int i = 0; i < 3; i++) {
 			Role role = new Role();
 			role.setName(faker.name().name());
-			roleRepositor.save(role);
+			roleRepository.save(role);
 		}
 
 	}
-
 	@Test
 	void save_user() {
 		Faker faker = new Faker();
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 2; i++) {
 			User user = new User();
+			user.setEmail(faker.internet().emailAddress());
 			user.setName(faker.name().fullName());
 			user.setAvatar(faker.internet().avatar());
 			user.setPassword(faker.internet().password());
-			user.setRoles(roleRepositor.findAll());
+			user.setRoles(roleRepository.findAll());
 			userRepository.save(user);
 
-			for (int j = 0; j < 50; j++) {
+			for (int j = 0; j < 20; j++) {
 				Blog blog = new Blog();
 				blog.setContent(faker.lorem().paragraph());
 				blog.setSlug(faker.internet().slug());
 				blog.setDescription(faker.lorem().characters());
 				blog.setThumbnail(faker.internet().image());
 				blog.setTitle(faker.lorem().sentence());
+				blog.setStatus(faker.bool().bool());
 				blog.setCategories(categoryRepository.findAll());
 				blog.setUser(user);
+				blogRepository.save(blog);
 
-				for (int k = 0; k < 100; k++) {
+				for (int k = 0; k < 10; k++) {
 					Comment comment = new Comment();
 					comment.setContent(faker.lorem().paragraph());
 					comment.setUser(user);
+					commentRepository.save(comment);
 				}
 			}
 		}

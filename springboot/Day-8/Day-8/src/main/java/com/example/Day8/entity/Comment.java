@@ -18,8 +18,12 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(columnDefinition = "text")
     private String content;
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
     @ManyToOne
@@ -33,6 +37,10 @@ public class Comment {
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+    @PreUpdate
+    public void preUpdate() {
         updatedAt = LocalDateTime.now();
     }
 }

@@ -50,75 +50,76 @@
 </div>
 
 <script th:inline="javascript">
-    const userId = [[${userId}]];
-    console.log(userId);
+  const userId = [[${userId}]];
+  console.log(userId);
 
+  // delete file using fetch
+  function deleteFile(id) {
+      const isConfirm = window.confirm('Bạn có chắc chắn muốn xóa file này?');
+      if (!isConfirm) return;
 
-    // delete file using fetch
-    function deleteFile(id) {
-        const isConfirm = window.confirm('Bạn có chắc chắn muốn xóa file này?');
-        if (!isConfirm) return;
+      // call api
+      fetch(`/api/files/${id}`, {
+          method: 'DELETE'
+      })
+          .then(res => {
+              if (res.ok) {
+                  // Xóa ở trên giao diện
+                  const current = document.getElementById(`file-${id}`);
+                  current.parentElement.removeChild(current);
+              }
+          })
+          .catch(err => {
+              console.log(err);
+          })
+  }
 
-        // call api
-        fetch(`/api/files/${id}`, {
-            method: 'DELETE'
-        })
-            .then(res => {
-                if (res.ok) {
-                    // Xóa ở trên giao diện
-                    const current = document.getElementById(`file-${id}`);
-                    current.parentElement.removeChild(current);
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    }
-    //convert date string to date string format dd/MM/yyyy
-    function formatDate(dateString) {
+  // covert date string to date string format dd/MM/yyyy
+  function formatDate(dateString) {
       const date = new Date(dateString);
-      const day = `0${date.getDate()}`.slice(-2);
+      const day = `0${date.getDate()}`.slice(-2); // 08 -> 08, 019 -> 19
       const month = `0${date.getMonth() + 1}`.slice(-2);
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
-    }
-    // upload file using fetch and form data
-    const inputFile = document.getElementById('input-file');
-    inputFile.addEventListener('change', (e) => {
-        // Lấy thông tin file upload
-        const file = e.target.files[0];
+  }
 
-        // Tạo form data
-        const formData = new FormData();
-        formData.append('file', file);
+  // upload file using fetch and form data
+  const inputFile = document.getElementById('input-file');
+  inputFile.addEventListener('change', (e) => {
+      // Lấy thông tin file upload
+      const file = e.target.files[0];
 
-        // call api
-        fetch(`/api/users/${userId}/files`, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(data => {
-                // Thêm ở trên giao diện
-                const tableBody = document.querySelector('tbody');
-                tableBody.insertAdjacentHTML("afterbegin", `
-                    <tr id="file-${data.id}">
-                        <th>${data.id}</th>
-                        <td>${data.type}</td>
-                        <td>${formatDate(data.createdAt)}</td>
-                        <td><a href="/api/files/${data.id}" target="_blank">Xem chi tiết</a></td>
-                        <td>
-                            <button class="btn btn-danger" onclick="deleteFile(${data.id})">
-                                Delete
-                            </button>
-                        </td>
-                    </tr>
-                `)
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    })
+      // Tạo form data
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // call api
+      fetch(`/api/users/${userId}/files`, {
+          method: 'POST',
+          body: formData
+      })
+          .then(res => res.json())
+          .then(data => {
+              // Thêm ở trên giao diện
+              const tableBody = document.querySelector('tbody');
+              tableBody.insertAdjacentHTML("afterbegin", `
+                  <tr id="file-${data.id}">
+                      <th>${data.id}</th>
+                      <td>${data.type}</td>
+                      <td>${formatDate(data.createdAt)}</td>
+                      <td><a href="/api/files/${data.id}" target="_blank">Xem chi tiết</a></td>
+                      <td>
+                          <button class="btn btn-danger" onclick="deleteFile(${data.id})">
+                              Delete
+                          </button>
+                      </td>
+                  </tr>
+              `)
+          })
+          .catch(err => {
+              console.log(err);
+          })
+  })
 
 </script>
 </body>
