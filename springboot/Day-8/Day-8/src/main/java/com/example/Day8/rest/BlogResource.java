@@ -9,25 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-
+@RequestMapping("/api/v1/admin/blogs")
 public class BlogResource {
     @Autowired
     private BlogService blogService;
 
-    @GetMapping()
-    public ResponseEntity<?> getAllBlog(
+    @GetMapping
+    public ResponseEntity<?> getAllBlogs(
             @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         return ResponseEntity.ok(blogService.findAll(page, pageSize));
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAllBlogs(Integer page, Integer limit){
-        return ResponseEntity.ok(blogService.getAllBlogs(page,limit));
-    }
-
-    @GetMapping
-    public ResponseEntity<?> getAllBlogOfCurrentUser(Integer page, Integer limit){
+    @GetMapping("/own-blogs")
+    public ResponseEntity<?> getAllBlogOfCurrentUser(@RequestParam(required = false, defaultValue = "1") Integer page,
+                                                     @RequestParam(required = false,defaultValue = "10") Integer limit){
         return ResponseEntity.ok(blogService.getAllBlogsOfCurrentUser(page, limit));
     }
 

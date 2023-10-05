@@ -21,14 +21,15 @@ import java.util.Optional;
 
 @Service
 public class BlogService {
-    @Autowired
-    private BlogRepository blogRepository;
+    private final BlogRepository blogRepository;
+    private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    public BlogService(BlogRepository blogRepository, CategoryRepository categoryRepository, UserRepository userRepository) {
+        this.blogRepository = blogRepository;
+        this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
+    }
 
     public Page<Blog> findAll(Integer page, Integer limit){
         Pageable pageable = PageRequest.of(page - 1, limit, Sort.by("publishedAt").descending());

@@ -2,6 +2,8 @@ package com.example.Day8.controller;
 
 import com.example.Day8.entity.Blog;
 import com.example.Day8.service.BlogService;
+import com.example.Day8.service.CategoryService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -10,9 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
+@AllArgsConstructor
 public class WebController {
-    @Autowired
-    private BlogService blogService;
+    private final BlogService blogService;
+    private final CategoryService categoryService;
     @GetMapping("/")
     public String getHome(Model model) {
         Page<Blog> pageData = blogService.findAll(1, 5);
