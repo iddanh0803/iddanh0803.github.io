@@ -5,9 +5,10 @@ import com.example.Day8.repository.CategoryRepository;
 import com.example.Day8.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
-
+@SpringBootTest
 public class CategoryTest {
     @Autowired
     private CategoryRepository categoryRepository;
@@ -17,7 +18,7 @@ public class CategoryTest {
 
     @Test
     void test_find_all_category_dto() {
-        List<CategoryDto> categoryDtos = categoryRepository.getAllCategoryDtoNQ();
+        List<CategoryDto> categoryDtos = categoryRepository.getAllCategoryDto();
         categoryDtos.forEach(System.out::println);
     }
 

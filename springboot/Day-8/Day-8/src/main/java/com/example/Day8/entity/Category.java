@@ -1,5 +1,6 @@
 package com.example.Day8.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class Category {
     @Column(name = "name", nullable = false, columnDefinition = "varchar(100)")
     private String name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "categories")
     private List<Blog> blogs = new ArrayList<>();
     public Category(Integer id, String name) {

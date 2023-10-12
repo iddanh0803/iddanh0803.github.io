@@ -55,9 +55,8 @@ public class BlogService {
     }
 
     public Page<Blog> getAllBlogs(Integer page, Integer limit) {
-        // TODO : Giả định userId = 1, sau này userId chính là user đang login
-        Integer userId = 1;
-        return null;
+        Pageable pageable = PageRequest.of(page - 1, limit, Sort.by("createdAt").descending());
+        return blogRepository.findAll(pageable);
     }
 
     public Blog getBlogById(Integer id) {

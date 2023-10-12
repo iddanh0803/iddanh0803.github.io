@@ -314,6 +314,61 @@
             }
         })
 
+        //Chọn ảnh cho bài viết
+        btnChoseImage.addEventListener('click', ()=>{
+            const selectedEl= document.querySelector('.image-item.selected');
+            const imageId = selectedEl.dataset.id;
+
+            thumbnailPreviewEl.src = `/api/v1/images/${imageId}`;
+            $('#modal-xl').modal('hide');
+        })
+
+        // Update blog
+        const  data = {
+            title : title.value,
+            description : description.value,
+            content : easyMDE.value(),
+            status: status.value === "true",
+            category: $("#category").val().map(id => Number(id)),
+            thumbnailPreviewEl: thumbnailPreviewEl.src,
+        }
+        console.log(data);
+        // Send Api request using fetch
+
+        try{
+            let res = await axios.put("/api/v1/admin/blogs" + blog.id, data);
+            if (res.status === 200){
+                toastr.success("Cập nhật bài viết thành công");
+            }else {
+                toastr.error("Cập nhật bài viết thất bại");
+            }
+        }catch (e){
+            console.log(e);
+            toastr.error(e.response.data.message)
+
+        }
+
+        // Xóa blog
+        const btnDelete = document.getElementById("btn-delete")
+        btnDelete.addEventListener('click', async ()=>{
+            const isDelete = confirm("Bạn có chắc chắn muốn xóa bài viết này không???")
+            if (!isDelete) return;
+            try{
+                let res = await axios.delete("/api/v1/admin/blogs" + blog.id);
+                if (res.status === 204){
+                    toastr.success("Xóa bài viết thành công");
+                    setTimeout(() =>{
+                        window.location.href = "/admin/blogs/own-blogs";
+                    }, 1500)
+
+                }else {
+                    toastr.error("Xóa bài viết thất bại");
+                }
+            }catch (e){
+                console.log(e);
+                toastr.error(e.response.data.message);
+            }
+        })
         // Vừa vào trang thì render pagination
         renderPagination(imageList);
     </script>

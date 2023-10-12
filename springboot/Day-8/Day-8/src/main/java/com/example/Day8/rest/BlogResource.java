@@ -43,7 +43,7 @@ public class BlogResource {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBlog(Integer id){
+    public void deleteBlog(@PathVariable Integer id){
         blogService.deleteBlog(id);
     }
 }
