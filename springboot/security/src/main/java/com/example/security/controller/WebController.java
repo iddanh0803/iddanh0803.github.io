@@ -3,6 +3,7 @@ package com.example.security.controller;
 import com.example.security.security.AuthenticationFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
+
 public class WebController {
     @Autowired
     private AuthenticationFacade authenticationFacade;
